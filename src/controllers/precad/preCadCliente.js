@@ -1,10 +1,8 @@
 const express = require("express")
 const dbconnection = require("../../database/dbconnection")
+const { verificaJWT } = require("../../functions/JWTS")
 const route = express.Router()
 
-route.get("/teste", function(req, res){
-
-
-})
+//inser na tabela usuario
 
 module.exports = route

@@ -7,10 +7,12 @@ routes.use(cors())
 
 routes.use(bodyParser.json())
 
-const precad = require("./controllers/precad/preCadCliente")
+const precad = require("./controllers/cadConta/preCadCliente")
 const criarJWTPublico = require("./controllers/public/criarJWTPublico")
+const controllerLogin = require("./controllers/login/login")
 
 routes.use(precad)
 routes.use(criarJWTPublico)
+routes.use(controllerLogin)
 
 module.exports = routes

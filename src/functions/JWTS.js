@@ -1,26 +1,25 @@
 const jwt = require("jsonwebtoken")
-
-
+//verifica jwt publico ou de login
 function verificaJWT(req, res, next) {
 
-    jwt.verify(req.headers.authorization, process.env.JWT_KEY, function(erro, decodificado){
+    jwt.verify(req.headers.authorization, process.env.JWT_KEY, function (erro, decodificado) {
 
-        if(erro){
+        if (erro) {
 
             res.status(403).send("Token inválido")
         }
-        else{
+        else {
 
             next()
         }
     })
 }
-
+//cria jwt publico
 function criaJWT(userID) {
 
     return new Promise(function (resolve, reject) {
 
-        jwt.sign({user_id: userID}, process.env.JWT_KEY, function (erro, token) {
+        jwt.sign({ user_id: userID }, process.env.JWT_KEY, function (erro, token) {
 
             if (erro) {
 
@@ -33,5 +32,19 @@ function criaJWT(userID) {
         })
     })
 }
+//cria jwt do login
+function criaJwtLogin(email, senha) {
+    return new Promise(function (resolve, reject) {
+        jwt.sign({ emailLogado: email, senhaLogado: senha }, process.env.JWT_KEY, function (erro, token) {
+            if (erro) {
 
-module.exports = { verificaJWT, criaJWT }
+                reject(erro.message)
+            }
+            else {
+
+                resolve(token)
+            }
+        })
+    })
+}
+module.exports = { verificaJWT, criaJWT, criaJwtLogin }

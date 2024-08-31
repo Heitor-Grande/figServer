@@ -1,6 +1,6 @@
 const dbconnection = require("../../database/dbconnection")
 const { descriptografar } = require("../../functions/crypto")
-const { verificaJWT, criaJwtLogin } = require("../../functions/JWTS")
+const { verificaJWT, criaJwtLogin, verificaJWTLogin } = require("../../functions/JWTS")
 const controllerLogin = require("express").Router()
 //rota responsavel por autorizar o login
 controllerLogin.post("/realizar/login", verificaJWT, async function (req, res) {
@@ -41,5 +41,10 @@ controllerLogin.post("/realizar/login", verificaJWT, async function (req, res) {
         })
     }
 })
-
+//verifica token login quando carrega as telas
+controllerLogin.get("/verifica/login/usuario", verificaJWTLogin, function(req, res){
+    return res.status(200).send({
+        message: "Login valido."
+    })
+})
 module.exports = controllerLogin

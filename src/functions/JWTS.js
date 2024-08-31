@@ -3,7 +3,9 @@ const jwt = require("jsonwebtoken")
 function verificaJWT(req, res, next) {
     jwt.verify(req.headers.authorization, process.env.JWT_KEY, function (erro, decodificado) {
         if (erro) {
-            res.status(403).send("Token inválido")
+            res.status(403).send({
+                message: "Token inválido"
+            })
         }
         else {
             next()
@@ -31,13 +33,11 @@ function criaJWT(userID) {
 //cria jwt do login
 function criaJwtLogin(email, senha) {
     return new Promise(function (resolve, reject) {
-        jwt.sign({ emailLogado: email, senhaLogado: senha }, process.env.JWT_KEY, function (erro, token) {
+        jwt.sign({ emailLogado: email, senhaLogado: senha }, process.env.JWT_KEY_LOGIN, { expiresIn: "120h" }, function (erro, token) {
             if (erro) {
-
                 reject(erro.message)
             }
             else {
-
                 resolve(token)
             }
         })
@@ -45,9 +45,12 @@ function criaJwtLogin(email, senha) {
 }
 //verifica jwt de login
 function verificaJWTLogin(req, res, next) {
+    //esse token vem com infos do usuario como senha e email
     jwt.verify(req.headers.authorization, process.env.JWT_KEY_LOGIN, function (erro, decodificado) {
         if (erro) {
-            res.status(403).send("Token inválido")
+            res.status(403).send({
+                message: "Token inválido"
+            })
         }
         else {
             next()

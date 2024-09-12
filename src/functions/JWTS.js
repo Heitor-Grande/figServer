@@ -33,7 +33,7 @@ function criaJWT(userID) {
 //cria jwt do login
 function criaJwtLogin(email, senha, idUsuario) {
     return new Promise(function (resolve, reject) {
-        jwt.sign({ emailLogado: email, senhaLogado: senha }, process.env.JWT_KEY_LOGIN, { expiresIn: "120h" }, function (erro, token) {
+        jwt.sign({ emailLogado: email, senhaLogado: senha, idUsuario: idUsuario }, process.env.JWT_KEY_LOGIN, { expiresIn: "120h" }, function (erro, token) {
             if (erro) {
                 reject(erro.message)
             }

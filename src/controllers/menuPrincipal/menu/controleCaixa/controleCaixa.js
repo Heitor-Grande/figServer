@@ -105,4 +105,22 @@ controllerControleCaixa.put("/atualizar/movimento/:id_usuario/:id_movimento", ve
         })
     }
 })
+//deleta movimento
+controllerControleCaixa.delete("/excluir/movimento/:id_usuario/:id_movimento", verificaJWTLogin, async function (req, res) {
+    try {
+        const { id_movimento, id_usuario } = req.params
+        const SqlDeleteMovimento = `
+        DELETE FROM public.movimentos
+        where id_movimento = ${id_movimento} AND id_usuario = ${id_usuario}
+        `
+        await dbconnection.query(SqlDeleteMovimento)
+        return res.status(200).send({
+            message: "Movimento excluido com sucesso."
+        })
+    } catch (error) {
+        return res.status(500).send({
+            message: "Erro ao excluir: " + error.message || error
+        })
+    }
+})
 module.exports = controllerControleCaixa

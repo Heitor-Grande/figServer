@@ -5,7 +5,7 @@ const bodyParser = require("body-parser")
 
 routes.use(cors())
 
-routes.use(bodyParser.json())
+routes.use(bodyParser.json({ limit: "10mb" }))
 
 const precad = require("./controllers/cadConta/preCadCliente")
 const criarJWTPublico = require("./controllers/public/criarJWTPublico")

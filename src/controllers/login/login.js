@@ -50,7 +50,7 @@ controllerLogin.post("/realizar/login", verificaJWT, async function (req, res) {
     }
 })
 //verifica token login quando carrega as telas
-controllerLogin.get("/verifica/login/usuario", verificaJWTLogin, function (req, res) {
+controllerLogin.get("/verifica/login/usuario/:id_usuario", verificaJWTLogin, function (req, res) {
     return res.status(200).send({
         message: "Login valido."
     })

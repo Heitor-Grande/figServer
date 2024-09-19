@@ -46,14 +46,26 @@ function criaJwtLogin(email, senha, idUsuario) {
 //verifica jwt de login
 function verificaJWTLogin(req, res, next) {
     //esse token vem com infos do usuario como senha e email
+    const id_usuario = req.params.idUsuario || req.params.id_usuario
     jwt.verify(req.headers.authorization, process.env.JWT_KEY_LOGIN, function (erro, decodificado) {
         if (erro) {
-            res.status(403).send({
+            return res.status(403).send({
                 message: "Token inválido"
             })
         }
         else {
-            next()
+            console.log("----------")
+            console.log(req.params)
+            console.log(id_usuario)
+            console.log("----------")
+            if (decodificado.idUsuario == id_usuario) {
+                next()
+            }
+            else {
+                return res.status(403).send({
+                    message: "Id de usuário broke."
+                })
+            }
         }
     })
 }

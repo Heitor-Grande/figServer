@@ -175,4 +175,22 @@ controllerControleCaixa.put("/upload/arquivo/movimento/:id_movimento/:id_usuario
         })
     }
 })
+//deletar anexo do movimento
+controllerControleCaixa.delete("/deletar/arquivo/movimento/:id_movimento/:id_anexo/:id_usuario", verificaJWTLogin, async function (req, res) {
+    try {
+        const { id_movimento, id_usuario, id_anexo } = req.params
+        const SqlDeleteAnexosMovimento = `
+        DELETE FROM public.anexosmovimento
+        WHERE id_movimento = ${id_movimento} AND id_usuario = ${id_usuario} AND id_anexo = ${id_anexo}
+        `
+        await dbconnection.query(SqlDeleteAnexosMovimento)
+        return res.status(200).send({
+            message: "Sucesso ao remover anexo do movimento."
+        })
+    } catch (error) {
+        return res.status(500).send({
+            message: "Erro ao remover anexo: " + error.message || error
+        })
+    }
+})
 module.exports = controllerControleCaixa

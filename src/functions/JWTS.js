@@ -54,10 +54,6 @@ function verificaJWTLogin(req, res, next) {
             })
         }
         else {
-            console.log("----------")
-            console.log(req.params)
-            console.log(id_usuario)
-            console.log("----------")
             if (decodificado.idUsuario == id_usuario) {
                 next()
             }

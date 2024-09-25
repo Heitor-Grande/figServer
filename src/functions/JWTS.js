@@ -46,7 +46,7 @@ function criaJwtLogin(email, senha, idUsuario) {
 //verifica jwt de login
 function verificaJWTLogin(req, res, next) {
     //esse token vem com infos do usuario como senha e email
-    const id_usuario = req.params.idUsuario || req.params.id_usuario
+    const id_usuario = req.params.idUsuario || req.params.id_usuario || req.body.id_usuario || req.body.idUsuario
     jwt.verify(req.headers.authorization, process.env.JWT_KEY_LOGIN, function (erro, decodificado) {
         if (erro) {
             return res.status(403).send({

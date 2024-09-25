@@ -14,6 +14,7 @@ const recSenha = require("./controllers/login/recsenha")
 const controllerMinhaConta = require("./controllers/menuPrincipal/menu/minhaConta/minhaConta")
 const controllerControleCaixa = require("./controllers/menuPrincipal/menu/controleCaixa/controleCaixa")
 const controllerMeusArquivos = require("./controllers/menuPrincipal/menu/meusArquivos/meusArquivos")
+const controllerPrincipal = require("./controllers/menuPrincipal/principal")
 
 routes.use(precad)
 routes.use(criarJWTPublico)
@@ -22,4 +23,5 @@ routes.use(recSenha)
 routes.use(controllerMinhaConta)
 routes.use(controllerControleCaixa)
 routes.use(controllerMeusArquivos)
+routes.use(controllerPrincipal)
 module.exports = routes
